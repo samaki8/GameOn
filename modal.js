@@ -108,6 +108,7 @@ function showError(input, message) {
   input.style.border = '2px solid #e54858';
 }
 
+
 function showSuccess(input) {
   const formData = input.parentElement;
   formData.className = 'form-control success';
