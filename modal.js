@@ -97,6 +97,26 @@ function estMajeur(dateNaissance) {
 }
 
 */
+//Show input error message
+
+function showError(input, message) {
+  const formData = input.parentElement;
+  formData.className = 'formData';
+  const small = formControl.querySelector('[data-error]');
+  small.innerText = message;
+  small.setAttribute('data-error-visible', 'true');
+  input.style.border = '2px solid #e54858';
+}
+
+function showSuccess(input) {
+  const formData = input.parentElement;
+  formData.className = 'form-control success';
+  const small = formControl.querySelector('[data-error]');
+  small.innerText = '';
+  small.removeAttribute('data-error-visible');
+  input.style.border = '';
+}
+
 // Gestion de l'événement submit sur le formulaire de partage. 
 
 function validate() {
@@ -110,8 +130,10 @@ function validate() {
   var checkbox2 = document.forms["reserve"]["checkbox2"].checked;
 
   if (firstName.length < 2 || lastName.length < 2) {
-      alert("Le prénom et le nom doivent comporter au moins 2 lettres.");
-      return false;
+    alert("Le prénom et le nom doivent comporter au moins 2 lettres.");
+    showError(document.forms["reserve"]["first"], "Le prénom doit comporter au moins 2 lettres.");
+    showError(document.forms["reserve"]["last"], "Le nom doit comporter au moins 2 lettres.");
+    return false;
   }
 
   var today = new Date();
@@ -140,3 +162,4 @@ function validate() {
   alert("Votre formulaire a été soumis avec succès !");
   return true;
 }
+
