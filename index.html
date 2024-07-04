@@ -1,13 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 
 <head>
-  <meta charset="utf-8" />
-  <title>Reservation</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" href="modal.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+      content="GameOn Landing Page - Video Game conference and competition">
+  <meta name="keywords"
+      content="GameOn videos games jeux vidéos compétition">
+  <meta name="author" content="GameOn">
+  <meta name="language" content="fr">
+  <meta name="robots" content="index, follow">
+  <meta name="og:type" content="website">
+  <meta property="og:image" content="./Logo.png">
+  <meta property="og:title" content="GameOn - gaming conference and competition">
+  <meta property="og:description"
+      content="GameOn Landing Page - Video Game conference and competition">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GameOn">
+  <meta name="twitter:title" content="GameOn - gaming conference and competition">
+  <meta name="twitter:description"
+      content="GameOn Landing Page - Video Game conference and competition">
+  <meta name="twitter:image" content="./Logo.png">
+
+  <title>GameOn - gaming conference and competition</title>
+
+  <link rel="canonical" href="https://www.gameon.com">
+  <link rel="stylesheet" href="modal.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href="https://fonts.googleapis.com/css?family=DM+Sans" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=DM+Sans" rel="stylesheet">
 </head>
 
 <body>
@@ -18,7 +40,7 @@
     <div class="main-navbar">
 
      <!-- <a href="#" <span>Accueil</span></a>-->
-      <a href="#" class="active"><span>Détails de l'évènement</span></a>
+      <a href="#"<span>Détails de l'évènement</span></a>
       <a href="#"><span>À propos</span></a>
       <a href="#"><span>Contact</span></a>
       <a href="#"><span>Évènements passés</span></a>
@@ -40,14 +62,14 @@
           aux réservations... Places limitées !
         </p>
         <button class="btn-signup modal-btn">
-          je m'inscris
+          Je M'inscris
         </button>
       </div>
       <div class="hero-img">
         <img src="./bg_img.jpg" alt="img" />
       </div>
       <button class="btn-signup modal-btn">
-        je m'inscris
+        Je M'inscris
       </button>
     </div>
 
@@ -58,30 +80,34 @@
         </button>
         <div class="modal-body">
           <form name="reserve" action="index.html" method="get" onsubmit="return validate();">
-            <div class="formData">
-              <label>Prénom</label><br>
-              <input class="text-control" type="text" id="first" name="first" minlength="2" /><br>
+            <div class="formData" data-error="Veuillez écrire un prénom avec plus de 2 caractères." data-error-visible="false">
+              <label for="first">Prénom</label><br>
+              <input class="text-control" type="text" id="first" name="first" minlength="2" pattern="[a-zA-Z]{2,}" onblur="formFirstIsValid()" required/><br>
+              
             </div>
-            <div class="formData">
-              <label>Nom</label><br>
-              <input class="text-control" type="text" id="last" name="last" /><br>
+            <div class="formData" data-error="Veuillez écrire un nom avec plus de 2 caractères." data-error-visible="false">
+              <label for="last">Nom</label><br>
+              <input class="text-control" type="text" id="last" name="last" pattern="[a-zA-Z]{2,}" onblur="formLastIsValid()" required/><br>
+              
             </div>
-            <div class="formData">
-              <label>E-mail</label><br>
-              <input class="text-control" type="email" id="email" name="email" /><br>
+            <div class="formData" data-error="Veuillez écrire un email valide." data-error-visible="false">
+              <label for="mail">E-mail</label><br>
+              <input class="text-control" type="email" id="email" name="email" placeholder="" required onblur="formEmailIsValid()" /><br>
+              
             </div>
-            <div class="formData">
-              <label>Date de naissance</label><br>
-              <input class="text-control" type="date" id="birthdate" name="birthdate" /><br>
+            <div class="formData" data-error="Veuillez sélectionner une date de naissance valide." data-error-visible="false">
+              <label for="birthdate">Date de naissance</label><br>
+              <input class="text-control" type="date" id="birthdate" name="birthdate" data-error="Vous devez entrer votre date de naissance." data-error-visible="false" required onblur="formBirthdateIsValid()"/><br>
+              
             </div>
-            <div class="formData">
-              <label>À combien de tournois GameOn avez-vous déjà participé ?</label><br>
-              <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99">
+            <div class="formData"data-error="Veuillez écrire un nombre de tournoi." data-error-visible="false">
+              <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
+              <input type="number" class="text-control" id="quantity" onblur="formQuantityIsValid()" name="quantity" min="0" max="99">
             </div>
             <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
-            <div class="formData">
-              <input class="checkbox-input" type="radio" id="location1" name="location" value="New York" />
-              <label class="checkbox-label" for="location1">
+            <div class="formData"data-error="Veuillez sélectionnez une ville." data-error-visible="false">
+              <input class="checkbox-input" type="radio" id="location1" name="location" onblur="formLocationIsValid()" value="New York" />
+              <label class="checkbox-label" for="location1" checked="true">
                 <span class="checkbox-icon"></span>
                 New York</label>
               <input class="checkbox-input" type="radio" id="location2" name="location" value="San Francisco" />
@@ -106,22 +132,36 @@
                 Portland</label>
             </div>
 
-            <div class="formData">
-              <input class="checkbox-input" type="checkbox" id="checkbox1" checked />
+            <div class="formData" data-error="Veuillez vérifier que vous acceptez les termes et conditions" data-error-visible="false">
+              <input class="checkbox-input" type="checkbox" id="checkbox1" onblur="formTermsConditionsIsValid()" checked name="acceptedconditions"/>
               <label class="checkbox2-label" for="checkbox1" required>
                 <span class="checkbox-icon"></span>
                 J'ai lu et accepté les conditions d'utilisation.
+                
               </label>
               <br>
-              <input class="checkbox-input" type="checkbox" id="checkbox2" />
+              <input class="checkbox-input" type="checkbox" id="checkbox2" name="newsletters" />
               <label class="checkbox2-label" for="checkbox2">
                 <span class="checkbox-icon"></span>
                 Je souhaite être prévenu des prochains évènements.
               </label>
               <br>
             </div>
-            <input class="btn-submit" type="submit" class="button" value="C'est parti" />
+            <input class="btn-submit button" type="submit" value="C'est parti" />
           </form>
+        </div>
+      </div>
+    </div>
+    <div class="thanks-modal-bg">
+      <div class="container-thanks-modal">
+        <span class="close-thanks-modal"></span>
+        <div class="content-thanks-modal">
+          <p>
+            Merci pour
+            <br />
+            votre inscription.
+          </p>
+          <button id="close-btn-thanks-modal">Fermer</button>
         </div>
       </div>
     </div>
