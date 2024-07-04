@@ -97,15 +97,15 @@
             </div>
             <div class="formData" data-error="Veuillez sélectionner une date de naissance valide." data-error-visible="false">
               <label for="birthdate">Date de naissance</label><br>
-              <input class="text-control" type="date" id="birthdate" name="birthdate" data-error="Vous devez entrer votre date de naissance." data-error-visible="false" required onblur="formBirthdateIsValid()"/><br>
+              <input class="text-control" type="date" id="birthdate" name="birthdate" required onblur="formBirthdateIsValid()"/><br>
               
             </div>
-            <div class="formData"data-error="Veuillez écrire un nombre de tournoi." data-error-visible="false">
+            <div class="formData" data-error="Veuillez écrire un nombre de tournoi." data-error-visible="false">
               <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
               <input type="number" class="text-control" id="quantity" onblur="formQuantityIsValid()" name="quantity" min="0" max="99">
             </div>
             <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
-            <div class="formData"data-error="Veuillez sélectionnez une ville." data-error-visible="false">
+            <div class="formData" data-error="Veuillez sélectionnez une ville." data-error-visible="false">
               <input class="checkbox-input" type="radio" id="location1" name="location" onblur="formLocationIsValid()" value="New York" />
               <label class="checkbox-label" for="location1" checked="true">
                 <span class="checkbox-icon"></span>
@@ -133,8 +133,8 @@
             </div>
 
             <div class="formData" data-error="Veuillez vérifier que vous acceptez les termes et conditions" data-error-visible="false">
-              <input class="checkbox-input" type="checkbox" id="checkbox1" onblur="formTermsConditionsIsValid()" checked name="acceptedconditions"/>
-              <label class="checkbox2-label" for="checkbox1" required>
+              <input class="checkbox-input" type="checkbox" id="checkbox1" onblur="formTermsConditionsIsValid()" checked name="acceptedconditions" required/>
+              <label class="checkbox2-label" for="checkbox1">
                 <span class="checkbox-icon"></span>
                 J'ai lu et accepté les conditions d'utilisation.
                 

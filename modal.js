@@ -147,6 +147,7 @@ const formQuantity = document.getElementById('quantity'); // Get quantity of num
 const formLocation = document.querySelector('input[name="location"]'); // Get location input radio
 let formLocationCheck = document.querySelector('input[name="location"]:checked'); // Get location of next tournament input radio check
 const formTermsConditions = document.getElementById('checkbox1'); // Get terms conditions input checkbox
+const checkbox2 = document.getElementById('checkbox2'); // Get newletter imput
 
 const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const regexName = /^[a-z-A-Z ,.'-]+$/;
@@ -277,12 +278,16 @@ function formLocationIsValid() {
     removeFormErrorMessage(formLocation);
   }
 }
+// Refresh form location check each time we submit
+formLocationCheck = document.querySelector('input[name="location"]:checked');
+formIsValid = true;
 
 //Valider les termes et conditions
 function formTermsConditionsIsValid() {
   if (!formTermsConditions.checked) {
     addFormErrorMessage(formTermsConditions, "Veuillez accepter les conditions d'utilisation.");
     formIsValid = false;
+    alert ("conditions non validés")
   } else {
     removeFormErrorMessage(formTermsConditions);
   }
@@ -293,10 +298,7 @@ function validate(event) {
   //Prevent to submit form
   event.preventDefault();
 
-  // Refresh form location check each time we submit
-  formLocationCheck = document.querySelector('input[name="location"]:checked');
-  formIsValid = true;
-
+  
   formFirstIsValid();
   formLastIsValid();
   formEmailIsValid();
@@ -307,9 +309,9 @@ function validate(event) {
 
   if (formIsValid) {
     alert("Merci ! Votre réservation a été reçue.");
-    modalbg.classList.add('formSubmitted');
-    modalBody.style.opacity = "0";
-    modalSuccess.style.display = "flex";
+   // modalbg.classList.add('formSubmitted');
+   // modalBody.style.opacity = "0";
+    //modalSuccess.style.display = "flex";
     return true;
   } else {
     alert ("Le formulaire est incomplets")
