@@ -87,9 +87,11 @@ function formFirstIsValid() {
   if (formFirst.value == "" || formFirst.value.length < 2 || regexName.test(formFirst.value) != true) {
     alert("Le prénom et le nom doivent comporter au moins 2 lettres.");
     addFormErrorMessage(formFirst, "Veuillez entrer 2 caractères valide ou plus pour le champ du prénom.");
-    formIsValid = false;
+    return false;
   } else {
     removeFormErrorMessage(formFirst);
+    return true;
+    
   }
 }
 
@@ -97,9 +99,10 @@ function formFirstIsValid() {
 function formLastIsValid() {
   if (formLast.value == "" || formLast.value.length < 2 || regexName.test(formLast.value) != true) {
     addFormErrorMessage(formLast, "Veuillez entrer 2 caractères valide ou plus pour le champ du nom.");
-    formIsValid = false;
+    return false;
   } else {
     removeFormErrorMessage(formLast);
+    return true;
   }
 }
 
@@ -107,9 +110,10 @@ function formLastIsValid() {
 function formEmailIsValid() {
   if (regexEmail.test(formEmail.value) != true) {
     addFormErrorMessage(formEmail, "Veuillez entrer une adresse email valide.");
-    formIsValid = false;
+    return false;
   } else {
     removeFormErrorMessage(formEmail);
+    return true;
   }
 }
 
@@ -128,23 +132,23 @@ function formBirthdateIsValid() {
     formIsValid = false;
   } else if (Date.parse(formBirthdate.value) > Date.now()) {
     addFormErrorMessage(formBirthdate, "Vous devez entrer une date de naissance valide.");
-    formIsValid = false;
+    return false;
   } else if (age < 13) {
     addFormErrorMessage(formBirthdate, "Vous devez avoir au moins 13 ans.");
-    formIsValid = false;
+    return false;
   } else {
     removeFormErrorMessage(formBirthdate);
-    formIsValid = true;
+    return true;
   }
 }
 // Valider le nombre de tournois
 function formQuantityIsValid() {
   if (formQuantity.value == "" || isNaN(formQuantity.value)) {
     addFormErrorMessage(formQuantity, "Veuillez entrer un nombre.");
-    formIsValid = false;
+    return false;
   } else {
     removeFormErrorMessage(formQuantity);
-    formIsValid = true;
+    return true;
   }
 }
 
@@ -156,10 +160,11 @@ function formLocationIsValid() {
     for (let i = 0; i < locations.length; i++) {
         if (locations[i].checked) {
             allLocations.setAttribute('data-error-visible', 'false');
-            formIsValid = true;
+            return true;
         }
     }
-    formIsValid = false;
+    alert ("Veuillez sélectionner au moins une ville.");
+    return false;
   }
 }
 
@@ -170,12 +175,12 @@ function formTermsConditionsIsValid() {
   if (!checkbox1.checked) {
     checkbox1.parentElement.setAttribute('data-error-visible', 'true');
     addFormErrorMessage(checkbox1, "Veuillez accepter les termes et conditions");
-    formIsValid = false;
+    return false;
   } 
   checkbox1.parentElement.setAttribute('data-error-visible', 'false');
-  formIsValid = true;
+   return true;
 }
-
+document.getElementById('form').addEventListener('submit', validate);
 function validate(event) {
   // Empêche la soumission du formulaire
   event.preventDefault();
@@ -191,6 +196,8 @@ function validate(event) {
   const formIsValid = formFirstIsValid() && formLastIsValid() && formEmailIsValid() && formBirthdateIsValid() && formQuantityIsValid() && formLocationIsValid() && formTermsConditionsIsValid();
 
   if (formIsValid) { 
+    alert("Merci ! Votre réservation a été reçue.");
+    showThanksSubmit();
     // Affiche le modal de remerciement
     modalbg.classList.add('thanks-modal-bg');
     modalBody.style.opacity = "0";
@@ -201,7 +208,7 @@ function validate(event) {
     //document.querySelector('form').reset();
   }   
 }
-document.getElementById('form').addEventListener('submit', validate);
+
 
 //Remerciment
 const thanksModalBg = document.getElementsByClassName("thanks-modal-bg");
