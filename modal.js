@@ -152,15 +152,15 @@ function formQuantityIsValid() {
 function formLocationIsValid() {
   const locations = document.querySelectorAll('#allLocations .checkbox-input');
   for (let i = 0; i < locations.length; i++) {
-    if (locations[i].checked) {
-      locations[i].parentElement.setAttribute('data-error-visible', 'false');
-      addFormErrorMessage(locations, "Veuillez choissir une ville.");
-      formIsValid = false;
+    allLocations.setAttribute('data-error-visible', 'true');
+    for (let i = 0; i < locations.length; i++) {
+        if (locations[i].checked) {
+            allLocations.setAttribute('data-error-visible', 'false');
+            formIsValid = true;
+        }
     }
+    formIsValid = false;
   }
-  // Si aucune localisation n'est sélectionnée, affichez le message d'erreur
-  document.getElementById('allLocations').setAttribute('data-error-visible', 'true');
-  formIsValid = true;
 }
 
 
@@ -179,6 +179,13 @@ function formTermsConditionsIsValid() {
 function validate(event) {
   // Empêche la soumission du formulaire
   event.preventDefault();
+  formFirstIsValid();
+  formLastIsValid();
+  formEmailIsValid();
+  formBirthdateIsValid();
+  formQuantityIsValid();
+  formLocationIsValid();
+  formTermsConditionsIsValid();
 
   // Vérifie si chaque champ du formulaire est valide
   const formIsValid = formFirstIsValid() && formLastIsValid() && formEmailIsValid() && formBirthdateIsValid() && formQuantityIsValid() && formLocationIsValid() && formTermsConditionsIsValid();
