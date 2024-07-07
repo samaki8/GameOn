@@ -196,16 +196,15 @@ function validate(event) {
   const formIsValid = formFirstIsValid() && formLastIsValid() && formEmailIsValid() && formBirthdateIsValid() && formQuantityIsValid() && formLocationIsValid() && formTermsConditionsIsValid();
 
   if (formIsValid) { 
-    alert("Merci ! Votre réservation a été reçue.");
     showThanksSubmit();
     // Affiche le modal de remerciement
     modalbg.classList.add('thanks-modal-bg');
     modalBody.style.opacity = "0";
     modalSuccess.style.display = "flex";
-    alert("Merci ! Votre réservation a été reçue.");
+    //alert("Merci ! Votre réservation a été reçue.");
     showThanksSubmit();
     // Réinitialise le formulaire
-    //document.querySelector('form').reset();
+    document.querySelector('form').reset();
   }   
 }
 
@@ -220,20 +219,21 @@ function showThanksSubmit() {
   modalbg.style.display = "none";
   thanksModalBg[0].style.display = "block";
 }
-
-// close popup and reset border style
-function closeSubmit() {
-  thanksModalBg[0].style.display = "none";
-  first.style.border = "none";
-  last.style.border = "none";
-  email.style.border = "none";
-  birthdate.style.border = "none";
-  tournament.style.border = "none";
-}
-
 //button for close popup
 closeThanksModal[0].addEventListener("click", closeSubmit);
 closeBtnThanksModal.addEventListener("click", closeSubmit);
+// close popup and reset border style
+function closeSubmit() {
+  thanksModalBg[0].style.display = "none";
+  window.location.href = 'index.html';
+  //first.style.border = "none";
+  //last.style.border = "none";
+  //email.style.border = "none";
+  //birthdate.style.border = "none";
+  //tournament.style.border = "none";
+}
+
+
 
 /*
 // Validation de formulaire
