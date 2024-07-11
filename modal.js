@@ -1,5 +1,5 @@
 function editNav() {
-  var x = document.getElementById("myTopnav");
+  const x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
     x.className += " responsive";
   } else {
@@ -21,15 +21,15 @@ const formBirthdate = document.getElementById('birthdate'); // Get birthdate inp
 const formQuantity = document.getElementById('quantity'); // Get quantity of number of tournament participated input
 const allLocations = document.getElementById('allLocations');
 const locations = document.querySelectorAll('#allLocations .checkbox-input');
-//const formTermsConditions = document.getElementById('checkboess"x1'); // Get terms conditions input checkbox
 //const formTermsConditions = Document.forms["reserve"]["checkbox1"].checked; // Get terms conditions input checkbox
-const formTermsConditions = document.getElementById('checkbox1');
+const checkbox1 = document.getElementById('checkbox1');// Get terms conditions input checkbox
 const input = document.getElementsByClassName('text-control');
 const form = document.getElementById('form');
 const checkbox2 = document.getElementById('checkbox2'); // Get newletter imput
 const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const regexName = /^[a-z-A-Z ,.'-]+$/;
 let formIsValid; // initialize form validation;
+
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -85,7 +85,7 @@ function removeFormErrorMessage(element) {
 // Valider le prénom
 function formFirstIsValid() {
   if (formFirst.value == "" || formFirst.value.length < 2 || regexName.test(formFirst.value) != true) {
-    alert("Le prénom et le nom doivent comporter au moins 2 lettres.");
+    //alert("Le prénom et le nom doivent comporter au moins 2 lettres.");
     addFormErrorMessage(formFirst, "Veuillez entrer 2 caractères valide ou plus pour le champ du prénom.");
     return false;
   } else {
@@ -119,10 +119,10 @@ function formEmailIsValid() {
 
 // Valider la date de naissance
 function formBirthdateIsValid() {
-  var today = new Date();
-  var birthDate = new Date(formBirthdate.value);
-  var age = today.getFullYear() - birthDate.getFullYear();
-  var m = today.getMonth() - birthDate.getMonth();
+  const today = new Date();
+  const birthDate = new Date(formBirthdate.value);
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const m = today.getMonth() - birthDate.getMonth();
   if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
     age--;
   }
@@ -163,22 +163,39 @@ function formLocationIsValid() {
             return true;
         }
     }
-    alert ("Veuillez sélectionner au moins une ville.");
-    return false;
+    
   }
+  addFormErrorMessage(locations, "Veuillez sélectionner au moins une ville.");
+  //alert ("Veuillez sélectionner au moins une ville.");
+  return false;
 }
 
 
 //Valider les termes et conditions
-function formTermsConditionsIsValid() {
+/*function formTermsConditionsIsValid() {
   const checkbox1 = document.getElementById('checkbox1');
   if (!checkbox1.checked) {
     checkbox1.parentElement.setAttribute('data-error-visible', 'true');
     addFormErrorMessage(checkbox1, "Veuillez accepter les termes et conditions");
+    alert ("Veuillez accepter les termes et conditions")
     return false;
   } 
   checkbox1.parentElement.setAttribute('data-error-visible', 'false');
    return true;
+}
+   */
+function formTermsConditionsIsValid() {
+  //check if the checkbox is checked
+  if (checkbox1.checked === true) {
+    //set data-error false et return true if a checkbox is checked
+    checkbox1.parentElement.setAttribute("data-error-visible", "false");
+    return true;
+  } else {
+    //set data-error true if the checkbox are not checked
+    checkbox1.parentElement.setAttribute("data-error-visible", "true");
+    alert ("Veuillez accepter les termes et conditions")
+    return false;
+  }
 }
 document.getElementById('form').addEventListener('submit', validate);
 function validate(event) {
@@ -234,82 +251,3 @@ function closeSubmit() {
 }
 
 
-
-/*
-// Validation de formulaire
-function validate(event) {
-  //Prevent to submit form
-  event.preventDefault();
-  formFirstIsValid();
-  formLastIsValid();
-  formEmailIsValid();
-  formBirthdateIsValid();
-  formQuantityIsValid();
-  formLocationIsValid();
-  formTermsConditionsIsValid();
-
-  if (formIsValid) {
-    //showThanksModal();
-    modalbg.classList.add('formSubmitted');
-    modalBody.style.opacity = "0";
-     modalSuccess.style.display = "flex";
-    alert("Merci ! Votre réservation a été reçue.");
-        return true;
-  }
-}  
-  //} else {
-    //alert ("Le formulaire est incomplets")
-    //return false;
-  //}
-// FORM FIELDS EVENTS
-function formFieldsValidation(element, method, event) {
-  element.addEventListener(event, method);
-
-formFieldsValidation(formFirst, formFirstIsValid ,'focusout');
-formFieldsValidation(formLast, formLastIsValid, 'focusout');
-formFieldsValidation(formEmail,  formEmailIsValid, 'focusout');
-formFieldsValidation(formBirthdate, formBirthdateIsValid, 'focusout');
-formFieldsValidation(formQuantity, formQuantityIsValid, 'focusout');
-formFieldsValidation(formLocation, formLocationIsValid, 'change');
-formFieldsValidation(formTermsConditions, formTermsConditionsIsValid, 'change');  
-}
-// FOR ALL FIELDS VALIDATION
-function forAllFieldsValidation() {
-  formFirstIsValid();
-  formLastIsValid();
-  formEmailIsValid();
-  formBirthdateIsValid();
-  formQuantityIsValid();
-  formLocationIsValid();
-  formTermsConditionsIsValid();
-}
-
-function formValidation() {
-  if (formFirstIsValid() === true &&
-      formLastIsValid() === true &&
-      formEmailIsValid() === true &&
-      formBirthdateIsValid() === true &&
-      formQuantityIsValid() === true &&
-      formLocationIsValid() === true &&
-      formTermsConditionsIsValid() === true) {
-      return true;
-  }
-   if (!formValidation) {
-    event.preventDefault();
-  }    
-  return false;
-}
-
-
-// SEND FORM
-form.addEventListener('submit', function (e) {
-  e.preventDefault();
-  if (formValidation() == true) {
-    alert("formulaire validé");
-    showThanksSubmit();
-    document.querySelector('form').reset();
-  } else {
-      forAllFieldsValidation();
-  }
-});
-*/
