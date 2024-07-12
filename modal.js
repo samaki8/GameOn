@@ -133,7 +133,7 @@ function formBirthdateIsValid() {
   } else if (Date.parse(formBirthdate.value) > Date.now()) {
     addFormErrorMessage(formBirthdate, "Vous devez entrer une date de naissance valide.");
     return false;
-  } else if (age < 13) {
+  } else if (age < 13)  {
     addFormErrorMessage(formBirthdate, "Vous devez avoir au moins 13 ans.");
     return false;
   } else {
@@ -217,7 +217,7 @@ function validate(event) {
     // Affiche le modal de remerciement
     modalbg.classList.add('thanks-modal-bg');
     modalBody.style.opacity = "0";
-    modalSuccess.style.display = "flex";
+    //modalSuccess.style.display = "flex";
     //alert("Merci ! Votre réservation a été reçue.");
     showThanksSubmit();
     // Réinitialise le formulaire
